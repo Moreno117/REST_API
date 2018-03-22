@@ -5,10 +5,12 @@ const express = require("express"),
     cloudinary = require("cloudinary"),
     mongoose = require("mongoose"),
     passport = require("passport"),
+    db = require("./models");
     _ = require("lodash"),
     app = express();
 
 const APIS = require("./util");
+const User = db.User;
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, "<br>");
@@ -44,7 +46,11 @@ app.use(function (req, res, next) {
 
 // ********* ROUTES ************
 app.get('/', (req, res) => {
-    res.send('API UP');
+    if(err){
+        console.log('err')
+    } else {
+        res.send('API UP');
+    }
 });
 
 app.listen(process.env.PORT || 8000, process.env.IP, () => {

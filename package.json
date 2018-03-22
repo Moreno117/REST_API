@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start-dev": "nodemon -r dotenv/config index.js",
+    "start": "node -r dotenv/config index.js"
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "keywords": [
     "REST",
@@ -17,16 +24,25 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
-    "cloudinary": "^1.11.0",
-    "express": "^4.16.3",
+    "cloudinary": "^1.10.0",
+    "dotenv": "^5.0.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "lodash": "^4.17.5",
     "method-override": "^2.3.10",
-    "mongoose": "^5.0.11",
+    "mongoose": "^5.0.7",
+    "mongoose-paginate": "^5.0.3",
+    "multer": "^1.3.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.2"
+    "eslint": "^4.19.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
+    "nodemon": "^1.17.1",
+    "prettier": "1.11.1"
   }
 }
