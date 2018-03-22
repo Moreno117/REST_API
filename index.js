@@ -9,8 +9,14 @@ const express = require("express"),
     _ = require("lodash"),
     app = express();
 
+// Utils
 const APIS = require("./util");
 const User = db.User;
+
+// Requiring routes
+const postRoutes = require('./routes/posts');
+    //   authRoutes = require('./routes/auth'),
+    //   socialRoutes = require('./routes/social');
 
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, "<br>");
@@ -44,14 +50,17 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Routing
+// app.use("/", authRoutes);
+// app.use("/social", authRoutes);
+app.use("/api/post", postRoutes);
+
 // ********* ROUTES ************
 app.get('/', (req, res) => {
-    if(err){
-        console.log('err')
-    } else {
-        res.send('API UP');
-    }
+    res.send("Landing here");
 });
+
+
 
 app.listen(process.env.PORT || 8000, process.env.IP, () => {
     console.log('API up and running');
