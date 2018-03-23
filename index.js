@@ -53,7 +53,7 @@ app.use(function (req, res, next) {
 // Routing
 // app.use("/", authRoutes);
 // app.use("/social", authRoutes);
-app.use("/api/post", postRoutes);
+app.use("/api/posts", postRoutes);
 
 // ********* ROUTES ************
 app.get('/', (req, res) => {

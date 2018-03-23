@@ -17,8 +17,6 @@ router.post('/', (req,res) => {
     const { title, content, image } = req.body;
     // const { filename } = req.file;
     const resume = content.substring(0, 250);
-    
-    console.log(title, content, image)
     // ***** Upload image *******
     // cloudinary.uploader.upload(`public/uploads/${filename}`, (result) => {
     //     const imagePath = result.url;
@@ -32,6 +30,16 @@ router.post('/', (req,res) => {
     };
     
     db.Post.create(userPost)
+    .then(post => {
+        res.json(post);
+    })
+    .catch(err => {
+        res.send(err);
+    });
+});
+
+router.get('/:postId', (req,res) => {
+    db.Post.findById(req.params.postId)
     .then(post => {
         res.json(post);
     })
