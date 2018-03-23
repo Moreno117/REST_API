@@ -48,4 +48,26 @@ router.get('/:postId', (req,res) => {
     });
 });
 
+router.put('/:postId', (req, res) => {
+    db.Post.findOneAndUpdate({ _id: req.params.postId }, req.body, {new:true})
+    .then(post => {
+        res.json(post);
+    })
+    .catch(err => {
+        res.send(err);
+    });
+});
+
+router.delete('/:postId', (req, res) => {
+    db.Post.remove({_id: req.params.postId})
+    .then(() => {
+        res.json({
+            message: "Post deleted!"
+        });
+    })
+    .catch(err => {
+        res.send(err);
+    });
+});
+
 module.exports = router;
