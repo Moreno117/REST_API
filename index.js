@@ -60,8 +60,6 @@ app.get('/', (req, res) => {
     res.send("Landing here");
 });
 
-
-
 app.listen(process.env.PORT || 8000, process.env.IP, () => {
     console.log('API up and running');
 })
