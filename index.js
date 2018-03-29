@@ -30,6 +30,13 @@ app.use(methodOverride("_method"));
 // Setting up cloudinanry
 cloudinary.config(APIS.CLOUDINARY);
 
+//CORS
+app.use((req,res,next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})
+
 // Passport configuration
 app.use(
     require("express-session")({
