@@ -1,7 +1,9 @@
 const db = require('./../models');
 
 exports.getPosts = (req, res) => {
-    db.Post.paginate({}, { page: 1, limit: 10 })
+    let { page, size } = req.query;
+    if(page === undefined || size === undefined) page = 1, size = 10
+    db.Post.paginate({}, { page: Number(page), limit: Number(size) })
     .then(posts => {
         res.json(posts);
     })
