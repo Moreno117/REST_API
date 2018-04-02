@@ -3,6 +3,7 @@ var mongoosePaginate = require("mongoose-paginate");
 
 var postSchema = new mongoose.Schema({
     title: String,
+    author: String,
     image: String,
     content: String,
     resume: String,
