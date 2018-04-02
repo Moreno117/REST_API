@@ -13,7 +13,7 @@ exports.getPosts = (req, res) => {
 };
 
 exports.createPost = (req, res) => {
-    const { title, content, image, author } = req.body;
+    const { title, content, image, author, subject } = req.body;
     // const { filename } = req.file;
     const resume = content.substring(0, 250);
     // ***** Upload image *******
@@ -24,6 +24,7 @@ exports.createPost = (req, res) => {
     const userPost = {
         title: title,
         author: author,
+        subject: subject,
         image: image,
         content: content,
         resume: resume
