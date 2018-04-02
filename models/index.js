@@ -10,3 +10,4 @@ mongoose.Promise = Promise;
 
 module.exports.Post = require("./data/post");
 module.exports.User = require("./data/user");
+module.exports.Image = require("./data/image");

@@ -14,13 +14,7 @@ exports.getPosts = (req, res) => {
 
 exports.createPost = (req, res) => {
     const { title, content, image, author, subject } = req.body;
-    // const { filename } = req.file;
     const resume = content.substring(0, 250);
-    // ***** Upload image *******
-    // cloudinary.uploader.upload(`public/uploads/${filename}`, (result) => {
-    //     const imagePath = result.url;
-    // });
-
     const userPost = {
         title: title,
         author: author,

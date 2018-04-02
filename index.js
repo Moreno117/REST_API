@@ -14,8 +14,8 @@ const APIS = require("./util");
 const User = db.User;
 
 // Requiring routes
-const postRoutes = require('./routes/posts');
-    //   authRoutes = require('./routes/auth'),
+let postRoutes = require('./routes/posts'),
+    imagesRoutes = require('./routes/images');
     //   socialRoutes = require('./routes/social');
 
 // Helper for parse HTML
@@ -58,10 +58,11 @@ app.use(function (req, res, next) {
     next();
 });
 
-// Routing
+// ROUTING
 // app.use("/", authRoutes);
 // app.use("/social", authRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/images", imagesRoutes);
 
 // ********* ROUTES ************
 app.get('/', (req, res) => {
