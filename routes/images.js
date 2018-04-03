@@ -11,6 +11,4 @@ router.route('/')
     .get(helpers.getImages)
     .post(upload.single('upload'), helpers.createImage)
 
-// router.post('/', upload.single('upload'))
-
 module.exports = router;
