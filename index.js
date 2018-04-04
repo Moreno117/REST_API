@@ -13,11 +13,6 @@ const express = require("express"),
 const APIS = require("./util");
 const User = db.User;
 
-// Requiring routes
-let postRoutes = require('./routes/posts'),
-    imagesRoutes = require('./routes/images');
-    //   socialRoutes = require('./routes/social');
-
 // Helper for parse HTML
 app.locals.htmlParsed = html => _.escape(html).replace(/\n/g, "<br>");
 // Use static assets
@@ -30,7 +25,7 @@ app.use(methodOverride("_method"));
 // Setting up cloudinanry
 cloudinary.config(APIS.CLOUDINARY);
 
-//CORS
+// ********** CORS ***********
 app.use((req,res,next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
@@ -38,7 +33,7 @@ app.use((req,res,next) => {
     next();
 })
 
-// Passport configuration
+// ******** PASSPORT *********
 app.use(
     require("express-session")({
         secret: "Site of the year 2018",
@@ -48,29 +43,33 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
 // Spread id on the routes
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     next();
 });
 
-// ROUTING
+// ********* ROUTING ************
+// Requiring routes
+let postRoutes = require('./routes/posts'),
+    imagesRoutes = require('./routes/images'),
+    userRoutes = require('./routes/users');
+
 // app.use("/", authRoutes);
-// app.use("/social", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/images", imagesRoutes);
+app.use("/api/users", userRoutes);
 
 // ********* ROUTES ************
 app.get('/', (req, res) => {
     res.send("Landing here");
 });
 
-
-
+// *********** PORTS *************
 app.listen(process.env.PORT || 8000, process.env.IP, () => {
     console.log('API up and running');
 })
