@@ -12,7 +12,7 @@ router.route('/')
 
 router.route('/:postId')
     .get(helpers.showPost)
-    .put(helpers.updatePost)
-    .delete(helpers.deletePost)
+    .put(isLoggedIn, helpers.updatePost)
+    .delete(isLoggedIn, helpers.deletePost)
 
 module.exports = router;

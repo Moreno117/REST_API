@@ -1,13 +1,15 @@
 const express = require('express'),
     db = require('./../models'),
-    passport = require('passport');
-    helpers = require('./../helpers/users');
+    passport = require('passport'),
+    helpers = require('./../helpers/users'),
+    isLoggedIn = require('./../helpers/middleware');
+
 
 const router = express.Router();
 
 router.route('/')
     .get(helpers.getUsers)
-    .post(helpers.createUser)
+    .post(isLoggedIn, helpers.createUser)
 
 router.post("/login", passport.authenticate("local"),
     (req, res) => {

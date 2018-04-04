@@ -1,7 +1,8 @@
 const express = require('express'),
     db = require('./../models'),
     helpers = require('./../helpers/images'),
-    multer = require('multer');
+    multer = require('multer'),
+    isLoggedIn = require('./../helpers/middleware');
 
 const upload = multer({ dest: 'public/uploads' });
 
@@ -9,6 +10,6 @@ const router = express.Router();
 
 router.route('/')
     .get(helpers.getImages)
-    .post(upload.single('upload'), helpers.createImage)
+    .post(isLoggedIn, upload.single('upload'), helpers.createImage)
 
 module.exports = router;
