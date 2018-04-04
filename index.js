@@ -61,8 +61,8 @@ let postRoutes = require('./routes/posts'),
 
 // app.use("/", authRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/images", imagesRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/images", imagesRoutes);
 
 // ********* ROUTES ************
 app.get('/', (req, res) => {

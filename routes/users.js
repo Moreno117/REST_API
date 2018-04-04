@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.route('/')
     .get(helpers.getUsers)
-    .post(isLoggedIn, helpers.createUser)
+    .post(helpers.createUser)
 
 router.post("/login", passport.authenticate("local"),
     (req, res) => {

@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.route('/')
     .get(helpers.getPosts)
-    .post(isLoggedIn, helpers.createPost)
+    .post(helpers.createPost)
 
 
 router.route('/:postId')
     .get(helpers.showPost)
-    .put(isLoggedIn, helpers.updatePost)
-    .delete(isLoggedIn, helpers.deletePost)
+    .put(helpers.updatePost)
+    .delete(helpers.deletePost)
 
 module.exports = router;

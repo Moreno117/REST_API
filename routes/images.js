@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.route('/')
     .get(helpers.getImages)
-    .post(isLoggedIn, upload.single('upload'), helpers.createImage)
+    .post(upload.single('upload'), helpers.createImage)
 
 module.exports = router;
