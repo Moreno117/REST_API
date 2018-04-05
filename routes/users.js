@@ -5,13 +5,14 @@ const express = require('express'),
     isLoggedIn = require('./../helpers/middleware');
 
 
+
 const router = express.Router();
 
 router.route('/')
     .get(helpers.getUsers)
     .post(helpers.createUser)
 
-router.post("/login", passport.authenticate("local"),
+router.post("/login", passport.authenticate('local'),
     (req, res) => {
         res.send({ message:'User authenticated', code: 200 })
     });

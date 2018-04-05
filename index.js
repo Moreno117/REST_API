@@ -7,6 +7,8 @@ const express = require("express"),
     passport = require("passport"),
     db = require("./models");
     _ = require("lodash"),
+    jwt = require('jsonwebtoken')
+    passportJWT = require("passport-jwt");
     app = express();
 
 // Utils
@@ -34,24 +36,37 @@ app.use((req,res,next) => {
 })
 
 // ******** PASSPORT *********
-app.use(
-    require("express-session")({
-        secret: "Site of the year 2018",
-        resave: false,
-        saveUninitialized: false
-    })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(
+//     require("express-session")({
+//         secret: "Site of the year 2018",
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// );
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy({ session: false },
+    function(username, password, done) {
+      return db.User.findOne({ username: username })
+      .then(user => {
+          if(!user){
+            return done(null, false, { message: 'User not found' })
+          }
+          return done(null, user, {message: 'Logged In Successfully'})
+      })
+      .catch(error => done(error));
+    }
+));
+
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
 // Spread id on the routes
-app.use(function (req, res, next) {
-    res.locals.currentUser = req.user;
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.locals.currentUser = req.user;
+//     next();
+// });
 
 // ********* ROUTING ************
 // Requiring routes
