@@ -1,7 +1,7 @@
 const express = require('express'),
-    db = require('./../models'),
     isLoggedAndAuth = require('./../middlewares/auth'),
-    helpers = require('./../helpers/posts');
+    helpers = require('./../helpers/posts'),
+    db = require('./../models');
 
 const router = express.Router();
 

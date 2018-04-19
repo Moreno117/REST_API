@@ -1,9 +1,9 @@
 const express = require('express'),
-    db = require('./../models'),
-    jwt = require("jsonwebtoken"),
-    passport = require('passport'),
     isLoggedAndAuth = require("./../middlewares/auth"),
-    helpers = require('./../helpers/users');
+    helpers = require('./../helpers/users'),
+    passport = require('passport'),
+    jwt = require("jsonwebtoken"),
+    db = require('./../models');
 
 const APIS = require("./../util");
 const router = express.Router();

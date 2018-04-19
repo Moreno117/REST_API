@@ -1,6 +1,6 @@
 const express = require("express"),
-    methodOverride = require("method-override"),
     BearerStrategy = require("passport-http-bearer").Strategy,    
+    methodOverride = require("method-override"),
     LocalStrategy = require("passport-local"),
     bodyParser = require("body-parser"),
     cloudinary = require("cloudinary"),
