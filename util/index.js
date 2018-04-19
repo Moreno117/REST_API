@@ -14,13 +14,11 @@ const TWITTER_PASS = {
     "callBackUrl": process.env.TWITTER_CALLBACK_URL
 };
 
-const TOKEN_KEY = {
-    'secret': process.env.KEY_TOKEN
-}
+const SALT = process.env.SECRET_SALT
 
 module.exports = {
     CLOUDINARY: CLOUDINARY_SETTINGS,
     INSTAGRAM_TOKEN: INSTAGRAM_TOKEN,
     TWITTER_SETTINGS: TWITTER_PASS,
-    TOKEN_KEY: TOKEN_KEY
+    AUTH_SALT: SALT
 };

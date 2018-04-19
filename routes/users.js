@@ -2,15 +2,16 @@ const express = require('express'),
     db = require('./../models'),
     jwt = require("jsonwebtoken"),
     passport = require('passport'),
+    isLoggedAndAuth = require("./../middlewares/auth"),
     helpers = require('./../helpers/users');
 
-
+const APIS = require("./../util");
 const router = express.Router();
-const secret = 'Requiem 1170'
+const secret = APIS.AUTH_SALT;
 
 router.route('/')
     .get(helpers.getUsers)
-    .post(helpers.createUser)
+    .post(isLoggedAndAuth, helpers.createUser)
 
 router.post("/login", function (req, res, next) {
     passport.authenticate("local", { session: false }, function (err, user, info) {
@@ -22,11 +23,6 @@ router.post("/login", function (req, res, next) {
         }
     })(req, res, next)
 });
-
-    // (req, res) => {
-    //     res.send({ message:'User authenticated', code: 200 })
-    // });
-    
 
 router.get("/logout", (req, res) => {
     req.logout();

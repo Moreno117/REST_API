@@ -1,17 +1,18 @@
 const express = require('express'),
     db = require('./../models'),
+    isLoggedAndAuth = require('./../middlewares/auth'),
     helpers = require('./../helpers/posts');
 
 const router = express.Router();
 
 router.route('/')
     .get(helpers.getPosts)
-    .post(helpers.createPost)
+    .post(isLoggedAndAuth, helpers.createPost)
 
 
 router.route('/:postId')
     .get(helpers.showPost)
-    .put(helpers.updatePost)
-    .delete(helpers.deletePost)
+    .put(isLoggedAndAuth, helpers.updatePost)
+    .delete(isLoggedAndAuth, helpers.deletePost)
 
 module.exports = router;

@@ -36,20 +36,11 @@ app.use((req,res,next) => {
 })
 
 // ******** PASSPORT *********
-// app.use(
-//     require("express-session")({
-//         secret: "Site of the year 2018",
-//         resave: false,
-//         saveUninitialized: false
-//     })
-// );
-const secret = 'Requiem 1170'
+const secret = APIS.AUTH_SALT;
 
 app.use(passport.initialize());
-// app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.use(new BearerStrategy(function (token, cb) {
     jwt.verify(token, secret, function (err, decoded) {
         if(err) {
@@ -62,11 +53,6 @@ passport.use(new BearerStrategy(function (token, cb) {
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-// // Spread id on the routes
-// app.use(function (req, res, next) {
-//     res.locals.currentUser = req.user;
-//     next();
-// });
 
 // ********* ROUTING ************
 // Requiring routes
@@ -74,7 +60,6 @@ let postRoutes = require('./routes/posts'),
     imagesRoutes = require('./routes/images'),
     userRoutes = require('./routes/users');
 
-// app.use("/", authRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/images", imagesRoutes);
