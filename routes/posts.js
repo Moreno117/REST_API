@@ -1,7 +1,6 @@
 const express = require('express'),
     db = require('./../models'),
     helpers = require('./../helpers/posts');
-    isLoggedIn = require('./../helpers/middleware');
 
 const router = express.Router();
 

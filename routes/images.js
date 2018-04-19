@@ -1,8 +1,7 @@
 const express = require('express'),
     db = require('./../models'),
     helpers = require('./../helpers/images'),
-    multer = require('multer'),
-    isLoggedIn = require('./../helpers/middleware');
+    multer = require('multer');
 
 const upload = multer({ dest: 'public/uploads' });
 

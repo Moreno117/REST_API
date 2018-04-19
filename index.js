@@ -1,11 +1,13 @@
 const express = require("express"),
     methodOverride = require("method-override"),
+    BearerStrategy = require("passport-http-bearer").Strategy,    
     LocalStrategy = require("passport-local"),
     bodyParser = require("body-parser"),
     cloudinary = require("cloudinary"),
     mongoose = require("mongoose"),
     passport = require("passport"),
-    db = require("./models");
+    jwt = require("jsonwebtoken"),
+    db = require("./models"),
     _ = require("lodash"),
     app = express();
 
@@ -34,24 +36,37 @@ app.use((req,res,next) => {
 })
 
 // ******** PASSPORT *********
-app.use(
-    require("express-session")({
-        secret: "Site of the year 2018",
-        resave: false,
-        saveUninitialized: false
-    })
-);
+// app.use(
+//     require("express-session")({
+//         secret: "Site of the year 2018",
+//         resave: false,
+//         saveUninitialized: false
+//     })
+// );
+const secret = 'Requiem 1170'
+
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 passport.use(new LocalStrategy(User.authenticate()));
+
+passport.use(new BearerStrategy(function (token, cb) {
+    jwt.verify(token, secret, function (err, decoded) {
+        if(err) {
+            return cb(err);
+        }
+        var user = User.findOne(decoded.id);
+        return cb(null, user ? user : false);
+    });
+}));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-// Spread id on the routes
-app.use(function (req, res, next) {
-    res.locals.currentUser = req.user;
-    next();
-});
+// // Spread id on the routes
+// app.use(function (req, res, next) {
+//     res.locals.currentUser = req.user;
+//     next();
+// });
 
 // ********* ROUTING ************
 // Requiring routes
