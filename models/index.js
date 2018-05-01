@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.set('debug', true);
+// mongoose.set('debug', true);
 
 var url = process.env.DATABASEURL || "mongodb://localhost:27017/node-blog";
 
