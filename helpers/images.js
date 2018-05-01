@@ -3,7 +3,7 @@ const cloudinary = require("cloudinary");
 
 exports.getImages = (req,res) => {
     let { page, size } = req.query;
-    if (page === undefined ||  size === undefined) page = 1, size = 9
+    if (page === undefined ||  size === undefined) page = 1, size = 29
     db.Image.paginate({}, { page: Number(page), limit: Number(size) })
     .then(images => {
         res.json(images);
