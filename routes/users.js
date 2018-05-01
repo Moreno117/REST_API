@@ -11,7 +11,7 @@ const secret = APIS.AUTH_SALT;
 
 router.route('/')
     .get(helpers.getUsers)
-    .post(isLoggedAndAuth, helpers.createUser)
+    .post(helpers.createUser)
 
 router.post("/login", function (req, res, next) {
     passport.authenticate("local", { session: false }, function (err, user, info) {
